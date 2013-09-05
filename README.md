@@ -2,6 +2,8 @@
 
 Utilities built on redis-rb for using Redis Lua scripting.
 
+[![Build Status](https://travis-ci.org/codekitchen/redis-rb-scripting.png?branch=master)](https://travis-ci.org/codekitchen/redis-rb-scripting)
+
 ## Installation
 
 Add this line to your application's Gemfile:
