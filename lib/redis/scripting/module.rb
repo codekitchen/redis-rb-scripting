@@ -15,7 +15,7 @@ class Module
     load_scripts()
   end
 
-  def run(script_name, keys, argv)
+  def run(script_name, keys, argv, redis = self.redis)
     script = @scripts[script_name.to_s]
     raise(ArgumentError, "unknown script: #{script_name}") unless script
 
