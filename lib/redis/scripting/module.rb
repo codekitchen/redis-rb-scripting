@@ -12,7 +12,7 @@ class Module
     @redis = redis
     @source_dir = source_dir
     @scripts = {}
-    load_scripts()
+    load_scripts(opts[:preheat_scripts_cache])
   end
 
   def run(script_name, keys, argv, redis = self.redis)
@@ -28,7 +28,7 @@ class Module
 
   private
 
-  def load_scripts
+  def load_scripts(preheat_scripts_cache = false)
     headers = Dir.glob(File.join(source_dir, "includes", "*.lua")).map { |include_name|
       File.read(include_name)
     }
@@ -39,7 +39,9 @@ class Module
 
     Dir.glob(File.join(source_dir, "*.lua")).each do |filename|
       script = Redis::Scripting::Script.new(filename, script_header: header_source)
-      script.load(redis)
+      if preheat_scripts_cache
+        script.load(redis)
+      end
       @scripts[script.name] = script
     end
   end
