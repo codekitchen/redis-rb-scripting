@@ -39,6 +39,7 @@ class Module
 
     Dir.glob(File.join(source_dir, "*.lua")).each do |filename|
       script = Redis::Scripting::Script.new(filename, script_header: header_source)
+      script.load(redis)
       @scripts[script.name] = script
     end
   end

@@ -27,6 +27,10 @@ class Script
   def sha
     @sha ||= OpenSSL::Digest::SHA1.hexdigest(source)
   end
+
+  def load(redis)
+    redis.script(:load, source)
+  end
 end
 
 end
